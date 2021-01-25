@@ -54,7 +54,7 @@ func NewGotk3Generator(name string) *jen.File {
 	f.ImportName("github.com/gotk3/gotk3/cairo", "cairo")
 	f.ImportName("github.com/diamondburned/gotk-layer-shell/internal/callback", "callback")
 	f.CgoPreamble("#cgo pkg-config: gtk-layer-shell-0 gtk+-3.0 glib-2.0 gio-2.0 glib-2.0 gobject-2.0")
-	f.CgoPreamble("#include <gtk-layer-shell/gtk-layer-shell.h.h>")
+	f.CgoPreamble("#include <gtk-layer-shell/gtk-layer-shell.h>")
 	f.CgoPreamble("#include <gtk/gtk.h>")
 	f.CgoPreamble("#include <gio/gio.h>")
 	f.CgoPreamble("#include <glib.h>")
@@ -177,6 +177,8 @@ func EmbeddedFieldNoPanic(goType string) string {
 	case "gtk.Widget":
 		return "glib.InitiallyUnowned"
 
+	case "gdk.Monitor":
+		fallthrough
 	case "gtk.TextBuffer":
 		fallthrough
 	case "gtk.EntryBuffer":

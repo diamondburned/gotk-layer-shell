@@ -8,7 +8,7 @@ import (
 )
 
 // #cgo pkg-config: gtk-layer-shell-0 gtk+-3.0 glib-2.0 gio-2.0 glib-2.0 gobject-2.0
-// #include <gtk-layer-shell/gtk-layer-shell.h.h>
+// #include <gtk-layer-shell/gtk-layer-shell.h>
 // #include <gtk/gtk.h>
 // #include <gio/gio.h>
 // #include <glib.h>
@@ -146,7 +146,10 @@ func GetMinorVersion() uint {
 // C.gdk_display_get_monitor_at_window().
 func GetMonitor(window *gtk.Window) *gdk.Monitor {
 	v1 := (*C.GtkWindow)(unsafe.Pointer(window.Widget.Native()))
-	r := (*gdk.Monitor)(C.gtk_layer_get_monitor(v1))
+	obj := glib.Take(unsafe.Pointer(C.gtk_layer_get_monitor(v1)))
+	r := &gdk.Monitor{
+		Object: obj,
+	}
 	return r
 }
 
