@@ -1,4 +1,4 @@
-{ pkgs ? import <nixpkgs> {} }:
+{ pkgs ? import <unstable> {} }:
 
 pkgs.stdenv.mkDerivation rec {
 	name = "gotk-layer-shell";
